@@ -6,4 +6,7 @@ export interface PokemonItem {
 
 export interface PokemonItemProps {
   pokemon: Pokemon;
+  flow: string;
+  onRemove?: Function;
+  onAdd?: Function;
 }

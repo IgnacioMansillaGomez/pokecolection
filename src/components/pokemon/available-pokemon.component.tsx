@@ -10,7 +10,11 @@ import {
 
 import './pokemon_container.scss';
 
-export const AvailablePokemon: React.FC<PokemonProps> = () => {
+export const AvailablePokemon: React.FC<PokemonProps> = ({
+  pokemons,
+  removePokemonFromState,
+  addPokemonToState,
+}) => {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
 
   const getAllPokemon = async () => {
@@ -63,7 +67,13 @@ export const AvailablePokemon: React.FC<PokemonProps> = () => {
       <div className="outer-container">
         {pokemonList.length > 0 &&
           pokemonList.map((e: Pokemon, idx: number) => (
-            <PokemonItem pokemon={e} key={idx} />
+            <PokemonItem
+              pokemon={e}
+              key={idx}
+              flow="available"
+              onRemove={removePokemonFromState}
+              onAdd={addPokemonToState}
+            />
           ))}
       </div>
     </>

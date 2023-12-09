@@ -15,11 +15,13 @@ export interface Pokemon {
   name: string;
   types: string[];
   abilities: string[];
-  url: string;
-  user?: string;
   image: string;
+  user?: string;
 }
 
 export interface PokemonProps {
   pokemons: Pokemon[];
+  user: string;
+  removePokemonFromState?: Function;
+  addPokemonToState?: Function;
 }
