@@ -31,7 +31,7 @@ export const Login: React.FC<AuthProps> = ({
   return (
     <>
       <div className="auth-container">
-        <h2>Register:</h2>
+        <h2>Login:</h2>
         <input
           type="email"
           name="email"
@@ -47,7 +47,7 @@ export const Login: React.FC<AuthProps> = ({
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" onClick={handleRegister}>
-          Register
+          Sign In
         </button>
       </div>
     </>

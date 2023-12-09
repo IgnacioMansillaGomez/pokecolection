@@ -15,8 +15,9 @@ import {
   getDocs,
 } from 'firebase/firestore';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import UserPokemon from './components/user-pokemon/user-pokemon.component';
+import './main.scss';
 
 export const App = () => {
   const auth = getAuth();
@@ -169,29 +170,36 @@ export const App = () => {
 
   return (
     <>
+      <ToastContainer />
       <Router>
         <div className="top-container">
-          <img src={pokeball} alt="pokeball" />
-          <h1 className="main-logo-text">Poke App</h1>
+          <img src={pokeball} alt="nopic" />
+          <h1 className="main-logo-text">Pokedex App</h1>
           <nav>
             <ul>
-              <li>
-                <Link to={'/login'}>Login</Link>
-              </li>
-              <li onClick={handleLogout}>
-                <Link to={'/logout'}>Logout</Link>
-              </li>
-              <li>
-                <Link to={'/register'}>Register</Link>
-              </li>
-              <div>
+              {!isLoggedIn && (
                 <li>
-                  <Link to={'/collection'}>Collection</Link>
+                  <Link to="/login">Login</Link>
                 </li>
-                <li>
-                  <Link to={'/'}>Home</Link>
+              )}
+              {isLoggedIn && (
+                <li onClick={handleLogout}>
+                  <Link to="/login">Logout</Link>
                 </li>
-              </div>
+              )}
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+              {isLoggedIn && (
+                <div>
+                  <li>
+                    <Link to="/collection">Collection</Link>
+                  </li>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                </div>
+              )}
             </ul>
           </nav>
         </div>
@@ -214,19 +222,6 @@ export const App = () => {
             }
           />
         </Routes>
-        <Register
-          auth={auth}
-          setIsRegistered={setIsRegistered}
-          setIsLoggedIn={setIsLoggedIn}
-          setUser={setUser}
-        />
-        {/* <Login
-        auth={auth}
-        setIsRegistered={setIsRegistered}
-        setIsLoggedIn={setIsLoggedIn}
-        setUser={setUser}
-      /> */}
-        <AvailablePokemon pokemons={[]} user={''} />
       </Router>
     </>
   );

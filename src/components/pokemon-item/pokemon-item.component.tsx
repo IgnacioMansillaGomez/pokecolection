@@ -1,7 +1,6 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { PokemonItemProps } from '../../types/PokemonItem.types';
-import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import {
   getFirestore,
   collection,
@@ -11,16 +10,16 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore';
-import { toast } from 'react-toastify';
 import {
   AVAILABLE_FLOW,
   USER_FLOW,
   ADD_TEXT,
   OWNED_TEXT,
 } from '../../constants/main.ts';
-
-import './pokeItem.css';
 import { Pokemon } from '../../types/Pokemon.types';
+
+import './pokemon-item.scss';
+
 export const PokemonItem: React.FC<PokemonItemProps> = ({
   pokemon,
   flow,
@@ -47,17 +46,14 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({
     const checkIfPokemonInCollection = async (
       pokemonName: string
     ): Promise<void> => {
-      // Reference the user's "pokemon" subcollection
       const userPokemonCollection = collection(db, 'pokemon');
 
-      // Query to find the specific Pokemon document by its name and user
       const q = query(
         userPokemonCollection,
         where('name', '==', pokemonName),
         where('user', '==', userEmail)
       );
 
-      // Get the documents that match the query
       const querySnapshot = await getDocs(q);
 
       setIsOwned(!querySnapshot.empty);
@@ -78,10 +74,8 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({
 
   const handleRemovePokemon = async (pokemonName: string): Promise<void> => {
     try {
-      // Get a reference to the "pokemon" collection
       const pokemonCollection = collection(db, 'pokemon');
 
-      // Find the document reference for the Pokemon with the specified name
       const pokemonQuery = query(
         pokemonCollection,
         where('name', '==', pokemonName)
