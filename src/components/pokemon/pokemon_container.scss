@@ -1,0 +1,19 @@
+.title {
+  margin: 35px auto;
+  letter-spacing: 2px;
+  background-color: rgb(81, 77, 77);
+  text-align: center;
+  border: 2px solid #ffff;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bolder;
+  padding: 1rem;
+}
+
+.outer-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
